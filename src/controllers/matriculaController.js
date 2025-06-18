@@ -61,19 +61,6 @@ class MatriculaController {
         }
     }
     
-    static async verificarMatricula(req, res) {
-        try {
-            const { idAluno, idCurso } = req.query;
-            if (!idAluno || !idCurso) {
-                return res.status(400).json({ erro: 'IDs de aluno e curso são obrigatórios.' });
-            }
-            
-            const matricula = await MatriculaDAO.verificarMatricula(idAluno, idCurso);
-            res.json({ existe: !!matricula });
-        } catch (error) {
-            res.status(500).json({ erro: error.message });
-        }
-    }
 }
 
 export default MatriculaController;
