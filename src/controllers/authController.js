@@ -43,7 +43,6 @@ class AuthController {
         return res.status(401).json({ erro: 'Credenciais inválidas.' });
       }
 
-      // Criar token JWT válido por 5 minutos
       const token = jwt.sign(
         { id: usuario._id, email: usuario.email },
         process.env.JWT_SECRET,

@@ -1,4 +1,4 @@
-import Alunos from '../models/Alunos.js'; // Caminho relativo corrigido
+import Alunos from '../models/Alunos.js';
 import Matricula from '../models/Matriculas.js';
 
 class AlunoDAO {
