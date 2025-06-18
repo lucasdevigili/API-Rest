@@ -44,17 +44,7 @@ class MatriculaDAO {
             throw new Error('Erro ao listar matrículas recentes: ' + error.message);
         }
     }
-    
-    static async verificarMatricula(idAluno, idCurso) {
-        try {
-            return await Matricula.findOne({ 
-                aluno: idAluno, 
-                curso: idCurso 
-            });
-        } catch (error) {
-            throw new Error('Erro ao verificar matrícula: ' + error.message);
-        }
-    } 
+     
 }
 
 export default MatriculaDAO;
