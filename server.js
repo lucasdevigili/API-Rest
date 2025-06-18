@@ -4,8 +4,8 @@ import mongoose from 'mongoose';
 import alunoRoutes from './src/routes/alunoRoutes.js';
 import cursoRoutes from './src/routes/cursoRoutes.js';
 import matriculaRoutes from './src/routes/matriculaRoutes.js';
-import authRoutes from './src/routes/authRoutes.js'; // Adicione
-import authMiddleware from './src/Middlewares/authMiddleware.js'; // Adicione
+import authRoutes from './src/routes/authRoutes.js';
+import authMiddleware from './src/Middlewares/authMiddleware.js';
 
 dotenv.config();
 
@@ -26,10 +26,7 @@ const connectDB = async () => {
 
 connectDB();
 
-// Rotas públicas (sem autenticação)
 app.use('/auth', authRoutes);
-
-// Middleware de autenticação (protege todas as rotas abaixo)
 app.use(authMiddleware);
 
 // Rotas protegidas
