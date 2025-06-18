@@ -1,9 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import AlunoDAO from './src/daos/AlunoDAO.js';
-import CursoDAO from './src/daos/CursoDAO.js';
-import MatriculaDAO from './src/daos/MatriculaDAO.js';
+import alunoRoutes from './src/routes/alunoRoutes.js';
+import cursoRoutes from './src/routes/cursoRoutes.js';
+import matriculaRoutes from './src/routes/matriculaRoutes.js';
 
 dotenv.config();
 
@@ -23,125 +23,10 @@ const connectDB = async () => {
 
 connectDB();
 
-
-// === ROTAS ALUNOS ===
-app.post("/alunos", async (req, res) => {
-    try {
-        const novoAluno = await AlunoDAO.criar(req.body);
-        res.status(201).json(novoAluno);
-    } catch (err) {
-        res.status(400).json({ erro: err.message });
-    }
-});
-
-app.get('/alunos', async (req, res) => {
-    try {
-        const alunos = await AlunoDAO.listarTodos();
-        res.json(alunos);
-    } catch (error) {
-        res.status(500).json({ erro: error.message });
-    }
-});
-
-app.put('/alunos/:id', async (req, res) => {
-    try {
-        const alunoAtualizado = await AlunoDAO.atualizar(req.params.id, req.body);
-        if (!alunoAtualizado) {
-            return res.status(404).json({ erro: 'Aluno não encontrado' });
-        }
-        res.json(alunoAtualizado);
-    } catch (error) {
-        res.status(400).json({ erro: error.message });
-    }
-});
-
-app.delete('/alunos/:id', async (req, res) => {
-    try {
-        const alunoDeletado = await AlunoDAO.deletar(req.params.id);
-        if (!alunoDeletado) {
-            return res.status(404).json({ erro: 'Aluno não encontrado' });
-        }
-        res.json({ mensagem: 'Aluno deletado com sucesso' });
-    } catch (error) {
-        res.status(500).json({ erro: error.message });
-    }
-});
-
-
-// === ROTAS CURSOS ===
-app.post("/cursos", async (req, res) => {
-    try {
-        const novoCurso = await CursoDAO.criar(req.body);
-        res.status(201).json(novoCurso);
-    } catch (err) {
-        res.status(400).json({ erro: err.message });
-    }
-});
-
-app.get('/cursos', async (req, res) => {
-    try {
-        const cursos = await CursoDAO.listarTodos();
-        res.json(cursos);
-    } catch (error) {
-        res.status(500).json({ erro: error.message });
-    }
-});
-
-app.put('/cursos/:id', async (req, res) => {
-    try {
-        const cursoAtualizado = await CursoDAO.atualizar(req.params.id, req.body);
-        if (!cursoAtualizado) {
-            return res.status(404).json({ erro: 'Curso não encontrado' });
-        }
-        res.json(cursoAtualizado);
-    } catch (error) {
-        res.status(400).json({ erro: error.message });
-    }
-});
-
-app.delete('/cursos/:id', async (req, res) => {
-    try {
-        const cursoDeletado = await CursoDAO.deletar(req.params.id);
-        if (!cursoDeletado) {
-            return res.status(404).json({ erro: 'Curso não encontrado' });
-        }
-        res.json({ mensagem: 'Curso deletado com sucesso' });
-    } catch (error) {
-        res.status(500).json({ erro: error.message });
-    }
-});
-
-
-// === ROTAS MATRÍCULAS ===
-app.post("/matriculas", async (req, res) => {
-    try {
-        const novaMatricula = await MatriculaDAO.criar(req.body);
-        res.status(201).json(novaMatricula);
-    } catch (err) {
-        res.status(400).json({ erro: err.message });
-    }
-});
-
-app.get('/matriculas', async (req, res) => {
-    try {
-        const matriculas = await MatriculaDAO.listarTodas();
-        res.json(matriculas);
-    } catch (error) {
-        res.status(500).json({ erro: error.message });
-    }
-});
-
-app.delete('/matriculas/:id', async (req, res) => {
-    try {
-        const matriculaDeletada = await MatriculaDAO.deletar(req.params.id);
-        if (!matriculaDeletada) {
-            return res.status(404).json({ erro: 'Matrícula não encontrada' });
-        }
-        res.json({ mensagem: 'Matrícula deletada com sucesso' });
-    } catch (error) {
-        res.status(500).json({ erro: error.message });
-    }
-});
+// Rotas
+app.use('/alunos', alunoRoutes);
+app.use('/cursos', cursoRoutes);
+app.use('/matriculas', matriculaRoutes);
 
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);

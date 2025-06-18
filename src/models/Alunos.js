@@ -5,4 +5,4 @@ const AlunosSchema = new mongoose.Schema({
     idade: Number
 })
 
-export default mongoose.model('aluno', AlunosSchema);
+export default mongoose.model('Aluno', AlunosSchema);
