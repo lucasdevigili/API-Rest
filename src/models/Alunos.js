@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 const AlunosSchema = new mongoose.Schema({
     nome: String,
-    idade: Number,
-    curso: String
+    idade: Number
 })
 
-export default mongoose.model('crud', AlunosSchema);
+export default mongoose.model('aluno', AlunosSchema);
